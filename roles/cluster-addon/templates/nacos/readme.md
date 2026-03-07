@@ -1,7 +1,5 @@
 # nacos 部署
 
-参考 https://nacos.io/docs/v2.4/manual/admin/deployment/deployment-overview/
-
 ## 前置准备
 
 - 创建openebs 提供动态pvc存储
@@ -38,3 +36,8 @@ http://${nodeIp}:${nodePort}/nacos
 ```
 
 用户名：nacos 密码：Nacos1234!（首次登录时初始化设置）
+
+## 参考
+ 
+- https://nacos.io/docs/v2.4/manual/admin/deployment/deployment-overview/
+- https://github.com/nacos-group/nacos-k8s/wiki/%E4%BD%BF%E7%94%A8peerfinder%E6%89%A9%E5%AE%B9%E6%8F%92%E4%BB%B6
