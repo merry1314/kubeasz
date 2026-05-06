@@ -2,7 +2,6 @@
   file: name={{ item }} state=directory
   with_items:
   - "{{ bin_dir }}/containerd-bin"
-  - "{{ CONTAINERD_CONFIG_DIR }}/certs.d/docker.io"
   - "{{ CONTAINERD_CONFIG_DIR }}/certs.d/easzlab.io.local:5000"
   - "{{ CONTAINERD_CONFIG_DIR }}/certs.d/{{ HARBOR_REGISTRY }}"
   tags: support_private_registry
@@ -29,8 +28,25 @@
   template: src=config.toml.j2 dest={{ CONTAINERD_CONFIG_DIR }}/config.toml
   tags: upgrade
 
+#- name: 检查docker.io 是否可访问
+#  uri:
+#    url: "https://docker.io"
+#    method: GET
+#    status_code: [200, 302]
+#    timeout: 10
+#  register: url_check
+#  ignore_errors: yes
+
+#- name: debug info
+#  debug: var="url_check"
+
+- name: 配置docker.io 加速相关目录
+  file: name={{ CONTAINERD_CONFIG_DIR }}/certs.d/docker.io state=directory
+  when: 'ENABLE_MIRROR_REGISTRY|bool'
+
 - name: 配置docker.io 加速镜像
   template: src=docker.io/hosts.toml.j2 dest={{ CONTAINERD_CONFIG_DIR }}/certs.d/docker.io/hosts.toml
+  when: 'ENABLE_MIRROR_REGISTRY|bool'
 
 - name: 配置信任 INSECURE REGISTRY 仓库
   template:
