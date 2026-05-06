@@ -12,6 +12,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      attestations: write
+      id-token: write
 
     steps:
       - name: Checkout
@@ -52,7 +54,7 @@ jobs:
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/easzlab/ezlb:latest
-            ghcr.io/easzlab/ezlb:${{ github.ref_name }}
-            easzlab/ezlb:latest
-            easzlab/ezlb:${{ github.ref_name }}
+            ghcr.io/easzlab/kubeasz:latest
+            ghcr.io/easzlab/kubeasz:${{ github.ref_name }}
+            easzlab/kubeasz:latest
+            easzlab/kubeasz:${{ github.ref_name }}
